@@ -342,20 +342,21 @@ function gameOver() {
 }
 
 $("btn-share").onclick = async () => {
+  const gameUrl = "https://t.me/matrasgamesbot/crossing";
   const text = T("shareText").replace("{s}", scoreTotal).replace("{l}", level - 1);
   if (shareCanvas && navigator.canShare) {
     try {
       const blob = await new Promise(r => shareCanvas.toBlob(r, "image/png"));
       const file = new File([blob], "perehod.png", { type: "image/png" });
       if (navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], text });
+        await navigator.share({ files: [file], text, url: gameUrl });
         return;
       }
     } catch (e) {
       if (e && e.name === "AbortError") return;
     }
   }
-  const url = "https://t.me/share/url?url=" + encodeURIComponent(location.href) +
+  const url = "https://t.me/share/url?url=" + encodeURIComponent(gameUrl) +
     "&text=" + encodeURIComponent(text);
   if (TG) TG.openTelegramLink(url);
   else window.open(url, "_blank");
