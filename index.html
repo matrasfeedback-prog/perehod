@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Переход — игра про велосипедиста</title>
+<meta property="og:title" content="Переход 🚴">
+<meta property="og:description" content="Пересеки дорогу на велосипеде, не спешиваясь. Машин всё больше, дорога всё шире. Сколько очков наберёшь?">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="i18n.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrap">
+  <header>
+    <span class="title" id="brand">Переход</span>
+    <div id="hud">
+      <span id="h-level">Ур. 1</span>
+      <span class="lives" id="h-lives">♥♥♥</span>
+      <span id="h-score">0 очк.</span>
+      <button id="btn-sound" aria-label="sound" style="border:none;padding:0 0 0 4px;font-size:16px;line-height:1;background:none">🔊</button>
+    </div>
+  </header>
+
+  <div id="stage">
+    <canvas id="cv" width="420" height="640"></canvas>
+
+    <div class="overlay" id="ov-menu">
+      <h1 id="t-title">Переход</h1>
+      <div style="display:flex;flex-direction:column;gap:10px;width:100%;max-width:240px;margin-top:10px">
+        <button class="primary" id="btn-start">Поехали</button>
+        <button id="btn-rules">Правила</button>
+      </div>
+      <div id="langs"></div>
+      <div id="ver" style="font-size:11px;color:var(--muted);margin-top:4px"></div>
+    </div>
+
+    <div class="overlay hidden" id="ov-rules" style="justify-content:flex-start;padding-top:30px;overflow-y:auto">
+      <h1 style="font-size:20px" id="t-rules-h">Правила</h1>
+      <p style="text-align:left;max-width:320px" id="rules-body"></p>
+      <button id="btn-rules-back" style="margin-top:6px">Назад</button>
+    </div>
+
+    <div class="overlay hidden" id="ov-shop">
+      <div id="breakdown" style="font-size:13.5px;line-height:1.8;font-variant-numeric:tabular-nums;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px;min-width:250px"></div>
+      <div class="statline" id="shop-stats"></div>
+      <div id="shop"></div>
+      <button class="primary" id="btn-next"></button>
+    </div>
+
+    <div class="overlay hidden" id="ov-over">
+      <h1 style="font-size:22px" id="t-over-h">Итог</h1>
+      <div class="bignum" id="final-score">0</div>
+      <div class="statline" id="t-over-pts">очков набрано</div>
+      <div class="statline" style="margin-top:6px" id="final-levels"></div>
+      <div class="statline" id="final-best"></div>
+      <img id="share-card" alt="" style="width:100%;max-width:280px;border-radius:10px;border:1px solid var(--line);margin-top:10px">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;width:100%;max-width:260px">
+        <button class="tg" id="btn-share">Поделиться в Telegram</button>
+        <button id="btn-retry">Сыграть ещё</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <button data-k="left" aria-label="left">←</button>
+    <button data-k="brake" id="t-brake">Тормоз</button>
+    <button data-k="accel" id="t-accel">Газ</button>
+    <button data-k="right" aria-label="right">→</button>
+  </div>
+  <p class="hint" id="t-keys"></p>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
